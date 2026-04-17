@@ -1,0 +1,289 @@
+<!-- 🔥 IMPORTAR MONTSERRAT -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* 🔥 RESET CLAVE */
+* {
+  box-sizing: border-box;
+}
+
+/* 🔥 BODY */
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px; /* 👈 base para que no se mueva todo */
+  line-height: 1.4;
+  background-color: #ffffff;
+  overflow: hidden;
+  display: flex;
+}
+
+/* 🔥 SIDEBAR */
+.barra {
+  width: 260px;
+  height: 100vh;
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-right: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 🔥 LOGO */
+.logo {
+  width: 100%;
+  height: 200px; /* 👈 bajé un poco para equilibrio */
+  object-fit: contain;
+  margin-bottom: 20px;
+}
+
+/* 🔥 TÍTULO */
+h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #6e6e6e;
+  margin-bottom: 25px;
+}
+
+/* 🔥 OPCIONES */
+.subtitulo {
+  font-size: 15px;
+  font-weight: 500;
+  color: #a8996e;
+  font-weight: 600;
+  padding: 12px 10px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.subtitulo:hover {
+  background-color: #f5f5f5;
+  color: #000;
+}
+
+.subtitulo.activo {
+  background-color: #a8996e;
+  color: #fff;
+}
+
+/* 🔥 SELECTORES */
+.select-box {
+  display: none;
+  margin-bottom: 25px;
+}
+
+select {
+  width: 100%;
+  padding: 6px;
+  margin-top: 8px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* 🔥 CONTENIDO */
+.main {
+  flex: 1;
+  height: 100vh;
+  position: relative;
+}
+
+/* 🔥 BIENVENIDA */
+#inicio {
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  font-weight: 600; 
+}
+
+#inicio h3 {
+  font-size: 60px; /* 👈 ajustado para Montserrat */
+  font-weight: 300; /* 👈 elegante */
+  margin: 0;
+  font-weight: 600; 
+  color: #6e6e6e;
+}
+
+#inicio p {
+  font-size: 20px;
+  color: #a8996e;
+  margin-top: 10px;
+  font-weight: 600; 
+}
+
+/* 🔥 CONTENEDOR */
+.visor-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* 🔥 IFRAME */
+#visor {
+  position: absolute;
+  top: 0;
+  left: -10px;
+  width: calc(100% + 20px);
+  height: calc(100% + 100px);
+  border: none;
+  display: none;
+}
+
+/* 🔥 DIRECCIÓN */
+.direccion {
+  margin-top: auto;
+  font-size: 12px;
+  color: #6e6e6e;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 10px;
+  line-height: 1.4;
+}
+
+.direccion strong {
+  color: #a8996e;
+}
+
+</style>
+
+<div class="barra">
+
+  <img src="https://lh3.googleusercontent.com/d/1FzUKuUWBFdZJkf3tVgaq2IVvJcAVSeXT" class="logo">
+
+  <h2>Ciencia de Datos</h2>
+
+  <!-- 🔹 ESTIMACIONES -->
+  <span class="subtitulo" onclick="activar(this); mostrar('estimaciones')">Estimaciones</span>
+  <div id="estimaciones" class="select-box">
+    <select onchange="cambiar(this.value)">
+      <option value="">Selecciona un reporte</option>
+      <option value="https://app.powerbi.com/view?r=eyJrIjoiZTI0NzE1ODMtNzQ1Ni00MjA1LWFiMDEtMTRlYmY5MzU1ODAzIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9">Pronósticos</option>
+      <option value="https://app.powerbi.com/view?r=eyJrIjoiNjQwZWFmYmQtZGViNS00ZWNhLWJmZTYtYWVhZGY4NGQ0NTE5IiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9&pageName=ReportSectionbc92482a221c92453c0d">Impuestos potenciales</option>
+      <option value="https://app.powerbi.com/view?r=eyJrIjoiODkyYTUyMzMtNGQ2Yy00ZTBkLTlkNGYtYjM1MDA0MmEyNjI3IiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9">Impuesto predial potencial</option>
+    </select>
+  </div>
+
+  <!-- 🔹 INFORMACIÓN -->
+  <span class="subtitulo" onclick="activar(this); mostrar('informacion')">Información</span>
+  <div id="informacion" class="select-box">
+    <select onchange="cambiar(this.value)">
+
+      <option value="">Selecciona un reporte</option>
+
+      <optgroup label="📊 Ingresos">
+        <option value="https://app.powerbi.com/view?r=eyJrIjoiYjdiYzkzNzgtMDJlOS00NTIyLTgzNGEtZTQ2YzZhOTI4ZGZlIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9">Estadísticas EFIPEM: Ingresos</option>
+        <option value="https://app.powerbi.com/view?r=eyJrIjoiNTlmZGZiYmQtMzYzNC00MzI0LTgzNTItZmU5NmFjMjU4MjAxIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9&pageName=ReportSection3b90823ea5fa0795f306">Leyes de ingresos</option>
+        <option value="https://app.powerbi.com/view?r=eyJrIjoiNDdlZGRlNDAtZGNlNC00NDBiLTk0YmQtYTBhMjUwM2NkOWMwIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9&pageName=ReportSection3b90823ea5fa0795f306">Leyes de ingresos: Impuestos</option>
+        <option value="https://indetec1-my.sharepoint.com/:x:/g/personal/mdelatorrec_indetec1_onmicrosoft_com/IQDZrxthkHA1SJ6SbDzu1jCdAZococVYsJJQD4Mwpav06F8?rtime=nYkfJOyT3kg">Impuestos vigentes estatales 2026</option>
+        <option value="https://app.powerbi.com/view?r=eyJrIjoiYzUyMjU1YjUtZDdjNy00MTQxLWE2NzgtN2MxNWJkZGRhZGMyIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Y2MtYWN jMC0yMjJmZDA1NTU2YjYifQ==">Derechos de agua potable</option>
+      </optgroup>
+
+      <optgroup label="💸 Egresos">
+        <option value="https://app.powerbi.com/view?r=eyJrIjoiNzg1MWNhM2UtNDFhNy00YzUyLWExZDEtMjkxMWRiNDE5MTEwIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9">Estadísticas EFIPEM: Egresos</option>
+        <option value="https://app.powerbi.com/view?r=eyJrIjoiNGJkYjJjNDItNjdjYS00YTg3LWE3YjUtZDMzYjUwZTMxNzlmIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9">Presupuesto de egresos</option>
+        <option value="https://app.powerbi.com/view?r=eyJrIjoiMTk3YzZmMmQtZDA2OC00YTBlLWIwNWEtOWMwMWM2NTNjZWJhIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9">Presupuesto de egresos por capítulo</option>
+      </optgroup>
+
+     <optgroup label="📖 Ley de Disciplina Financiera (LDF)">
+        <option value="https://app.powerbi.com/view?r=eyJrIjoiNWNjNmQ4YWMtNjNhMi00OTg1LWE4MDUtM2QwNThjZGU5MDI3IiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9">Estado Analítico de los Ingresos</option>
+        <option value="https://app.powerbi.com/view?r=eyJrIjoiNGZkZmM5OGItNDljYi00MDExLWFlZTctNTMxZjRiZjEwMTVkIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9">Proyecciones de ingresos y egresos</option>
+        <option value="https://app.powerbi.com/view?r=eyJrIjoiZWMzNjhlNzItZjFiZi00MGMwLWJmNzQtMjE1MDE1NWYwMDJiIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9">Resultados de ingresos y egresos</option>
+      </optgroup>
+
+      <optgroup label="🏛️ Cuentas Públicas y deuda">
+        <option value="https://app.powerbi.com/view?r=eyJrIjoiYzczZWEwNWItNWNjNC00M2UyLTkyN2YtYTVkODE4NDczNjczIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9">Panorama de la Hacienda Pública Estatal</option>
+        <option value="https://app.powerbi.com/view?r=eyJrIjoiZjkzYmJkZWYtNTZkZi00NzMxLTkyMjItMjc2ZGRjMTVjMGQxIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9">Cuentas Públicas estatales</option>
+        <option value="https://app.powerbi.com/view?r=eyJrIjoiMmZjZGZmN2QtOWFjMS00OTM4LWFhNTAtMDc1OWI2Mzg0NDVmIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9">Cuentas Públicas municipales</option>
+        <option value="https://app.powerbi.com/view?r=eyJrIjoiNWI3NmRiZjYtMzczMy00M2Q4LWE2YjctNDBiMmZmOWFjNDgwIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9">Deuda Pública Municipal</option>
+      </optgroup>
+
+      <optgroup label="🌍 Medio ambiente">
+        <option value="https://app.powerbi.com/view?r=eyJrIjoiODFkYjFkNWItMzg5Zi00YjA3LTlkMTUtMGE5NTI5MzUxNmE3IiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9">Emisiones de contaminantes</option>
+      </optgroup>
+
+      <optgroup label="📈 Economía">
+        <option value="https://app.powerbi.com/view?r=eyJrIjoiNWYyZjQ3ZDctYzc5ZC00NzU3LThhNDEtZTdhZDQwMzk4ZmZmIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9&v=">Indicadores económicos</option>
+        <option value="https://app.powerbi.com/view?r=eyJrIjoiZDJkODBkZWUtNmE3MC00NDdjLWFkOTUtZGY2MDZlNGI0NTdjIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9">Censos Económicos 2024</option>
+        <option value="https://app.powerbi.com/view?r=eyJrIjoiNjY3YTY4ZjItZjY0Mi00OWFiLWJlZmMtNmI0M2E4YjE4MGI5IiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9">Estadísticas DENUE: Mapas</option>
+      </optgroup>
+
+    </select>
+  </div>
+
+
+  <!-- 🔹 PUBLICACIONES -->
+  <span class="subtitulo" onclick="activar(this); mostrarPublicacion()">Publicaciones</span>
+
+<!-- 🔥 DIRECCIÓN -->
+  <div class="direccion">
+    <p><strong>Dirección:</strong></p>
+    <p>C. Paseo del Alba No. 1276, Col. Solares Residencial, C.P. 45019, Zapopan, Jal.</p>
+    <p>Tel: 33-36-69-55-50</p>
+  </div>
+</div>
+
+<div class="main">
+
+  <div id="inicio">
+    <div>
+      <h3>Explora la información</h3>
+      <p>Selecciona una sección para comenzar</p>
+    </div>
+  </div>
+
+  <div class="visor-container">
+    <iframe id="visor"></iframe>
+  </div>
+
+</div>
+
+<script>
+function cambiar(link) {
+  let inicio = document.getElementById("inicio");
+  let visor = document.getElementById("visor");
+
+  if (link === "") {
+    visor.style.display = "none";
+    inicio.style.display = "flex";
+  } else {
+    inicio.style.display = "none";
+    visor.style.display = "block";
+    visor.src = link;
+  }
+}
+
+function ocultarTodos() {
+  document.getElementById("estimaciones").style.display = "none";
+  document.getElementById("informacion").style.display = "none";
+}
+
+function mostrar(seccion) {
+  ocultarTodos();
+  document.getElementById(seccion).style.display = "block";
+}
+
+function mostrarPublicacion() {
+  ocultarTodos();
+
+  let inicio = document.getElementById("inicio");
+  let visor = document.getElementById("visor");
+
+  inicio.style.display = "none";
+  visor.style.display = "block";
+
+  visor.src = "https://app.powerbi.com/view?r=eyJrIjoiNGJkYjJjNDItNjdjYS00YTg3LWE3YjUtZDMzYjUwZTMxNzlmIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9&chromeless=1";
+}
+
+function activar(elemento) {
+  let items = document.querySelectorAll(".subtitulo");
+  items.forEach(el => el.classList.remove("activo"));
+  elemento.classList.add("activo");
+}
+</script>
