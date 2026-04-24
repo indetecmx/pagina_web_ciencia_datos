@@ -1,3 +1,15 @@
+<head>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EQZPN0E1R1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EQZPN0E1R1');
+</script>
+
 <!-- 🔥 IMPORTAR MONTSERRAT -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -213,13 +225,13 @@ select {
         <option value="https://app.powerbi.com/view?r=eyJrIjoiZDJkODBkZWUtNmE3MC00NDdjLWFkOTUtZGY2MDZlNGI0NTdjIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9">Censos Económicos 2024</option>
         <option value="https://app.powerbi.com/view?r=eyJrIjoiNjY3YTY4ZjItZjY0Mi00OWFiLWJlZmMtNmI0M2E4YjE4MGI5IiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9">Estadísticas DENUE: Mapas</option>
       </optgroup>
-
     </select>
   </div>
 
-
-  <!-- 🔹 PUBLICACIONES -->
-  <span class="subtitulo" onclick="activar(this); mostrarPublicacion()">Publicaciones</span>
+<!-- 🔹 PUBLICACIONES -->
+<span class="subtitulo" onclick="activar(this); mostrarPublicaciones()">
+  Publicaciones
+</span>
 
 <!-- 🔥 DIRECCIÓN -->
   <div class="direccion">
@@ -286,4 +298,17 @@ function activar(elemento) {
   items.forEach(el => el.classList.remove("activo"));
   elemento.classList.add("activo");
 }
+
+function mostrarPublicaciones() {
+  ocultarTodos();
+
+  let inicio = document.getElementById("inicio");
+  let visor = document.getElementById("visor");
+
+  inicio.style.display = "none";
+  visor.style.display = "block";
+
+  visor.src = "https://app.powerbi.com/view?r=eyJrIjoiYjlmZDZhM2MtYzJlMS00NjExLTk0ZWEtZjg3MWJiMzM5NGYxIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9";
+}
+
 </script>
