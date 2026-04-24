@@ -1,15 +1,3 @@
-<head>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-EQZPN0E1R1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-EQZPN0E1R1');
-</script>
-
 <!-- 🔥 IMPORTAR MONTSERRAT -->
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
@@ -176,7 +164,7 @@ select {
   <div id="estimaciones" class="select-box">
     <select onchange="cambiar(this.value)">
       <option value="">Selecciona un reporte</option>
-      <option value="https://app.powerbi.com/view?r=eyJrIjoiZTI0NzE1ODMtNzQ1Ni00MjA1LWFiMDEtMTRlYmY5MzU1ODAzIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9">Pronósticos</option>
+      <option value="https://indetec-tracker.cdhindetec.workers.dev/go?id=pronosticos&src=boton_inicio">Pronósticos</option>
       <option value="https://app.powerbi.com/view?r=eyJrIjoiNjQwZWFmYmQtZGViNS00ZWNhLWJmZTYtYWVhZGY4NGQ0NTE5IiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9&pageName=ReportSectionbc92482a221c92453c0d">Impuestos potenciales</option>
       <option value="https://app.powerbi.com/view?r=eyJrIjoiODkyYTUyMzMtNGQ2Yy00ZTBkLTlkNGYtYjM1MDA0MmEyNjI3IiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9">Impuesto predial potencial</option>
     </select>
@@ -309,31 +297,6 @@ function mostrarPublicaciones() {
   visor.style.display = "block";
 
   visor.src = "https://app.powerbi.com/view?r=eyJrIjoiYjlmZDZhM2MtYzJlMS00NjExLTk0ZWEtZjg3MWJiMzM5NGYxIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9";
-}
-
-
-function cambiar(link) { ... }
-
-function ocultarTodos() { ... }
-
-function mostrar(seccion) { ... }
-
-function mostrarPublicaciones() {
-  ocultarTodos();
-
-  let inicio = document.getElementById("inicio");
-  let visor = document.getElementById("visor");
-
-  inicio.style.display = "none";
-  visor.style.display = "block";
-
-  visor.src = "https://app.powerbi.com/view?r=eyJrIjoiYjlmZDZhM2MtYzJlMS00NjExLTk0ZWEtZjg3MWJiMzM5NGYxIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9";
-
-  // 🔥 AQUÍ VA (al final)
-  gtag('event', 'click_publicaciones', {
-    event_category: 'menu',
-    event_label: 'Publicaciones'
-  });
 }
 
 </script>
