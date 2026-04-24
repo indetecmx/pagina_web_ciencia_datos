@@ -311,4 +311,29 @@ function mostrarPublicaciones() {
   visor.src = "https://app.powerbi.com/view?r=eyJrIjoiYjlmZDZhM2MtYzJlMS00NjExLTk0ZWEtZjg3MWJiMzM5NGYxIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9";
 }
 
+
+function cambiar(link) { ... }
+
+function ocultarTodos() { ... }
+
+function mostrar(seccion) { ... }
+
+function mostrarPublicaciones() {
+  ocultarTodos();
+
+  let inicio = document.getElementById("inicio");
+  let visor = document.getElementById("visor");
+
+  inicio.style.display = "none";
+  visor.style.display = "block";
+
+  visor.src = "https://app.powerbi.com/view?r=eyJrIjoiYjlmZDZhM2MtYzJlMS00NjExLTk0ZWEtZjg3MWJiMzM5NGYxIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9";
+
+  // 🔥 AQUÍ VA (al final)
+  gtag('event', 'click_publicaciones', {
+    event_category: 'menu',
+    event_label: 'Publicaciones'
+  });
+}
+
 </script>
