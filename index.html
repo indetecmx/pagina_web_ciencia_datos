@@ -1,261 +1,302 @@
-<!doctype html>
-<html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>INDETEC · Datos Hacendarios · Reportes PBI</title>
-<meta name="color-scheme" content="light dark">
-
-<!-- (opcional) preconnect a app.powerbi; ya no a Apps Script -->
-<link rel="dns-prefetch" href="https://app.powerbi.com">
-<link rel="preconnect" href="https://app.powerbi.com" crossorigin>
+<!-- 🔥 IMPORTAR MONTSERRAT -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-  :root{--bg:#fff;--fg:#111;--muted:#667;--card:#f6f7fb;--border:#e6e8ef;--accent:#2f6fed}
-  @media (prefers-color-scheme:dark){
-    :root{--bg:#0b0d12;--fg:#eaeef8;--muted:#98a0b3;--card:#121621;--border:#22283a;--accent:#6aa7ff}
-  }
-  *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.45 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-  header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--border);z-index:10}
-  .wrap{max-width:1100px;margin:0 auto;padding:16px}
-  h1{font-size:1.2rem;margin:0 0 6px}
-  .sub{color:var(--muted);font-size:.92rem;margin:0}
-  .toolbar{display:grid;grid-template-columns:1fr auto auto;gap:10px;margin-top:12px}
-  input[type=search]{padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--fg)}
-  .btn{padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:transparent;color:var(--fg);cursor:pointer}
-  .btn[aria-pressed=true]{border-color:var(--accent);color:var(--accent)}
-  main{padding:18px 0}
-  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-  @media (max-width:920px){.grid{grid-template-columns:repeat(2,1fr)}}
-  @media (max-width:640px){.grid{grid-template-columns:1fr}}
-  .card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px}
-  .title{margin:0;font-size:1rem}
-  .id{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.76rem;color:var(--muted)}
-  .meta{display:flex;gap:8px;flex-wrap:wrap}
-  .tag{font-size:.75rem;color:var(--muted);padding:2px 8px;border:1px solid var(--border);border-radius:999px}
-  .actions{display:flex;gap:8px;margin-top:auto}
-  .a{flex:1;text-align:center;text-decoration:none;border:1px solid var(--border);border-radius:10px;padding:9px;cursor:pointer}
-  .a.primary{background:var(--accent);border-color:var(--accent);color:#fff}
-  .hint{color:var(--muted);font-size:.85rem}
-  .empty{padding:24px;color:var(--muted)}
-  .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:8px 12px;border-radius:10px;font-size:.9rem;opacity:0;transition:opacity .2s}
-  .toast.show{opacity:.9}
+
+/* 🔥 RESET CLAVE */
+* {
+  box-sizing: border-box;
+}
+
+/* 🔥 BODY */
+body {
+  margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px; /* 👈 base para que no se mueva todo */
+  line-height: 1.4;
+  background-color: #ffffff;
+  overflow: hidden;
+  display: flex;
+}
+
+/* 🔥 SIDEBAR */
+.barra {
+  width: 260px;
+  height: 100vh;
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-right: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 🔥 LOGO */
+.logo {
+  width: 100%;
+  height: 200px; /* 👈 bajé un poco para equilibrio */
+  object-fit: contain;
+  margin-bottom: 20px;
+}
+
+/* 🔥 TÍTULO */
+h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #6e6e6e;
+  margin-bottom: 25px;
+}
+
+/* 🔥 OPCIONES */
+.subtitulo {
+  font-size: 15px;
+  font-weight: 500;
+  color: #a8996e;
+  font-weight: 600;
+  padding: 12px 10px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.subtitulo:hover {
+  background-color: #f5f5f5;
+  color: #000;
+}
+
+.subtitulo.activo {
+  background-color: #a8996e;
+  color: #fff;
+}
+
+/* 🔥 SELECTORES */
+.select-box {
+  display: none;
+  margin-bottom: 25px;
+}
+
+select {
+  width: 100%;
+  padding: 6px;
+  margin-top: 8px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* 🔥 CONTENIDO */
+.main {
+  flex: 1;
+  height: 100vh;
+  position: relative;
+}
+
+/* 🔥 BIENVENIDA */
+#inicio {
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+  font-weight: 600; 
+}
+
+#inicio h3 {
+  font-size: 60px; /* 👈 ajustado para Montserrat */
+  font-weight: 300; /* 👈 elegante */
+  margin: 0;
+  font-weight: 600; 
+  color: #6e6e6e;
+}
+
+#inicio p {
+  font-size: 20px;
+  color: #a8996e;
+  margin-top: 10px;
+  font-weight: 600; 
+}
+
+/* 🔥 CONTENEDOR */
+.visor-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* 🔥 IFRAME */
+#visor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: none;
+}
+
+/* 🔥 DIRECCIÓN */
+.direccion {
+  margin-top: auto;
+  font-size: 12px;
+  color: #6e6e6e;
+  border-top: 1px solid #e0e0e0;
+  padding-top: 10px;
+  line-height: 1.4;
+}
+
+.direccion strong {
+  color: #a8996e;
+}
+
 </style>
-</head>
-<body>
-<header>
-  <div class="wrap">
-    <h1>Datos Hacendarios · Reportes Power BI</h1>
-    <p class="sub">Enlaces directos a Power BI con registro de clics asíncrono (sin doble redirección).</p>
-    <div class="toolbar" role="region" aria-label="Herramientas">
-      <input id="q" type="search" placeholder="Buscar… (Ej.: EFIPem, predial, pe_2000_2023)" autocomplete="off" aria-label="Buscar">
-      <button id="toggleGroup" class="btn" aria-pressed="true" title="Agrupar por categoría">Agrupar</button>
-      <button id="toggleIds" class="btn" aria-pressed="false" title="Mostrar IDs">IDs</button>
+
+<div class="barra">
+
+  <img src="https://lh3.googleusercontent.com/d/1FzUKuUWBFdZJkf3tVgaq2IVvJcAVSeXT" class="logo">
+
+  <h2>Ciencia de Datos</h2>
+
+  <!-- 🔹 ESTIMACIONES -->
+  <span class="subtitulo" onclick="activar(this); mostrar('estimaciones')">Estimaciones</span>
+  <div id="estimaciones" class="select-box">
+    <select onchange="cambiar(this.value)">
+      <option value="">Selecciona un reporte</option>
+      <option value="https://indetec-tracker.cdhindetec.workers.dev/go?id=pronosticos&src=boton_inicio">Pronósticos</option>
+      <option value="https://indetec-tracker.cdhindetec.workers.dev/go?id=impuestos_potenciales&src=boton_inicio">Impuestos potenciales</option>
+      <option value="https://indetec-tracker.cdhindetec.workers.dev/go?id=predial_potencial&src=boton_inicio">Impuesto predial potencial</option>
+    </select>
+  </div>
+
+  <!-- 🔹 INFORMACIÓN -->
+  <span class="subtitulo" onclick="activar(this); mostrar('informacion')">Información</span>
+  <div id="informacion" class="select-box">
+    <select onchange="cambiar(this.value)">
+
+      <option value="">Selecciona un reporte</option>
+
+      <optgroup label="📊 Ingresos">
+        <option value="https://indetec-tracker.cdhindetec.workers.dev/go?id=efipem_1989_2024&src=boton_inicio">Estadísticas EFIPEM: Ingresos</option>
+        <option value="https://indetec-tracker.cdhindetec.workers.dev/go?id=leyes_2019_2025&src=boton_inicio">Leyes de ingresos</option>
+        <option value="https://indetec-tracker.cdhindetec.workers.dev/go?id=leyes_imp_2019_2025&src=boton_inicio">Leyes de ingresos: Impuestos</option>
+        <option value="https://indetec-tracker.cdhindetec.workers.dev/go?id=pe_2000_2023&src=boton_inicio">Impuestos vigentes estatales 2026</option>
+        <option value="https://indetec-tracker.cdhindetec.workers.dev/go?id=derechos_agua&src=boton_inicio">Derechos de agua potable</option>
+      </optgroup>
+
+      <optgroup label="💸 Egresos">
+        <option value="https://indetec-tracker.cdhindetec.workers.dev/go?id=efipem_2023&src=boton_inicio">Estadísticas EFIPEM: Egresos</option>
+        <option value="https://indetec-tracker.cdhindetec.workers.dev/go?id=pe_cap_2015_2024&src=boton_inicio">Presupuesto de egresos</option>
+        <option value="https://indetec-tracker.cdhindetec.workers.dev/go?id=pe_entidades&src=boton_inicio">Presupuesto de egresos por capítulo</option>
+      </optgroup>
+
+     <optgroup label="📖 Ley de Disciplina Financiera (LDF)">
+        <option value="https://indetec-tracker.cdhindetec.workers.dev/go?id=eai_ldf&src=boton_inicio">Estado Analítico de los Ingresos</option>
+        <option value="https://indetec-tracker.cdhindetec.workers.dev/go?id=balance_proj_2025_2030&src=boton_inicio">Proyecciones de ingresos y egresos</option>
+        <option value="https://indetec-tracker.cdhindetec.workers.dev/go?id=balance_ldf_2017_2024&src=boton_inicio">Resultados de ingresos y egresos</option>
+      </optgroup>
+
+      <optgroup label="🏛️ Cuentas Públicas y deuda">
+        <option value="https://indetec-tracker.cdhindetec.workers.dev/go?id=panorama_hacienda&src=boton_inicio">Panorama de la Hacienda Pública Estatal</option>
+        <option value="https://indetec-tracker.cdhindetec.workers.dev/go?id=balance_cp_2014_2024&src=boton_inicio">Cuentas Públicas estatales</option>
+        <option value="https://indetec-tracker.cdhindetec.workers.dev/go?id=cuentas_capitales&src=boton_inicio">Cuentas Públicas municipales</option>
+        <option value="https://indetec-tracker.cdhindetec.workers.dev/go?id=deuda_municipal&src=boton_inicio">Deuda Pública Municipal</option>
+      </optgroup>
+
+      <optgroup label="🌍 Medio ambiente">
+        <option value="https://indetec-tracker.cdhindetec.workers.dev/go?id=ambientales&src=boton_inicio">Emisiones de contaminantes</option>
+      </optgroup>
+
+      <optgroup label="📈 Economía">
+        <option value="https://indetec-tracker.cdhindetec.workers.dev/go?id=indicadores&src=boton_inicio">Indicadores económicos</option>
+        <option value="https://indetec-tracker.cdhindetec.workers.dev/go?id=censos_eco24&src=boton_inicio">Censos Económicos 2024</option>
+        <option value="https://indetec-tracker.cdhindetec.workers.dev/go?id=mapas&src=boton_inicio">Estadísticas DENUE: Mapas</option>
+      </optgroup>
+    </select>
+  </div>
+
+<!-- 🔹 PUBLICACIONES -->
+<span class="subtitulo" onclick="activar(this); mostrarPublicaciones()">
+  Publicaciones
+</span>
+
+<!-- 🔥 DIRECCIÓN -->
+  <div class="direccion">
+    <p><strong>Dirección:</strong></p>
+    <p>C. Paseo del Alba No. 1276, Col. Solares Residencial, C.P. 45019, Zapopan, Jal.</p>
+    <p>Tel: 33-36-69-55-50</p>
+  </div>
+</div>
+
+<div class="main">
+
+  <div id="inicio">
+    <div>
+      <h3>Explora la información</h3>
+      <p>Selecciona una sección para comenzar</p>
     </div>
   </div>
-</header>
 
-<main>
-  <div class="wrap">
-    <!-- 🧾 Fallback estático mínimo -->
-    <div id="static" class="grid">
-      <article class="card"><h3 class="title">Pronósticos</h3><div class="meta"><span class="tag">PBI</span></div><div class="actions"><a class="a primary" href="#" onclick="return openReport('pronosticos')">Abrir</a></div></article>
-      <article class="card"><h3 class="title">Impuestos potenciales</h3><div class="meta"><span class="tag">PBI</span></div><div class="actions"><a class="a primary" href="#" onclick="return openReport('impuestos_potenciales')">Abrir</a></div></article>
-      <article class="card"><h3 class="title">Mapas</h3><div class="meta"><span class="tag">PBI</span></div><div class="actions"><a class="a primary" href="#" onclick="return openReport('mapas')">Abrir</a></div></article>
-    </div>
-
-    <div id="app" hidden></div>
-    <p class="hint" style="margin-top:16px">Tip: los clics se registran con <code>sendBeacon</code> al Worker sin frenar la navegación.</p>
+  <div class="visor-container">
+    <iframe id="visor"></iframe>
   </div>
-</main>
 
-<div id="toast" class="toast" role="status" aria-live="polite">Copiado</div>
+</div>
 
-<script defer>
-/* ====== CONFIGURACIÓN ====== */
+<script>
+function cambiar(link) {
+  let inicio = document.getElementById("inicio");
+  let visor = document.getElementById("visor");
 
-/** URL base de tu Cloudflare Worker (reemplaza) **/
-const WORKER_BASE = "https://TU-WORKER.workers.dev";
-
-/** Catálogo (id → nombre) — sin URLs aquí **/
-const REPORTS = {
-  pronosticos:{name:'Pronósticos'},
-  impuestos_potenciales: {name:'Impuestos potenciales'},
-  predial_potencial:{name:'Impuesto predial potencial'},
-  efipem_ingresos: {name:'Estadísticas de finanzas públicas municipales y estatales (EFIPEM): Ingresos'},
-  leyes_ingresos:{name:'Leyes de ingresos'},
-  leyes_impuestos:{name:'Leyes de impuestos'},
-  impuestos_vig: {name:'Impuestos vigentes'},
-  derechos_agua:{name:'Derechos de agua'},
-  efipem_egresos: {name:'Estadísticas de finanzas públicas municipales y estatales (EFIPEM): egresos'},
-  presupuesto_egresos:{name:'Presupuesto de egresos'},
-  presupuesto_egresos_cap: {name:'Presupuesto de egresos por capitulo'},
-  estado_analitico: {name:'Estado analitico de ingresos detallado'},
-  proyecciones: {name:'Proyecciones de ingresos'},
-  resultados: {name:'Resultados de ingresos'},
-  panorama_hacienda: {name:'Panorama de hacienda pública'},
-  cp_estatales: {name:'Cuentas públicas estatales'},
-  cp_municipales:{name:'Cuentas públicas municipales'},
-  deuda_mun: {name:'Deuda municipal'},
-  ambiental:{name:'Medio ambiente'},
-  indicadores: {name:'Indicadores económicos'},
-  censos_eco: {name:'Censos económicos'},
-  denue:{name:'DENUE'},
-  publicaciones:{name:'Publicaciones'}
-};
-
-/** Destinos (id → URL final en Power BI) **/
-const TARGETS = {
-  pronosticos:"https://app.powerbi.com/view?r=eyJrIjoiZTI0NzE1ODMtNzQ1Ni00MjA1LWFiMDEtMTRlYmY5MzU1ODAzIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9",
-  impuestos_potenciales:"https://app.powerbi.com/view?r=eyJrIjoiNjQwZWFmYmQtZGViNS00ZWNhLWJmZTYtYWVhZGY4NGQ0NTE5IiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9&pageName=ReportSectionbc92482a221c92453c0d",
-  predial_potencial:"https://app.powerbi.com/view?r=eyJrIjoiODkyYTUyMzMtNGQ2Yy00ZTBkLTlkNGYtYjM1MDA0MmEyNjI3IiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9",
-  efipem_ingresos: "https://app.powerbi.com/view?r=eyJrIjoiYjdiYzkzNzgtMDJlOS00NTIyLTgzNGEtZTQ2YzZhOTI4ZGZlIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9",
-  leyes_ingresos:"https://app.powerbi.com/view?r=eyJrIjoiNTlmZGZiYmQtMzYzNC00MzI0LTgzNTItZmU5NmFjMjU4MjAxIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9&pageName=ReportSection3b90823ea5fa0795f306",
-  leyes_impuestos: "https://app.powerbi.com/view?r=eyJrIjoiNDdlZGRlNDAtZGNlNC00NDBiLTk0YmQtYTBhMjUwM2NkOWMwIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9&pageName=ReportSection3b90823ea5fa0795f306",
-  impuestos_vig: "https://indetec1-my.sharepoint.com/:x:/g/personal/mdelatorrec_indetec1_onmicrosoft_com/IQDZrxthkHA1SJ6SbDzu1jCdAZococVYsJJQD4Mwpav06F8?rtime=nYkfJOyT3kg",
-  derechos_agua: "https://app.powerbi.com/view?r=eyJrIjoiYzUyMjU1YjUtZDdjNy00MTQxLWE2NzgtN2MxNWJkZGRhZGMyIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Y2MtYWN jMC0yMjJmZDA1NTU2YjYifQ==",
-  efipem_egresos: "https://app.powerbi.com/view?r=eyJrIjoiNzg1MWNhM2UtNDFhNy00YzUyLWExZDEtMjkxMWRiNDE5MTEwIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9",
-  presupuesto_egresos: "https://app.powerbi.com/view?r=eyJrIjoiNGJkYjJjNDItNjdjYS00YTg3LWE3YjUtZDMzYjUwZTMxNzlmIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9",
-  presupuesto_egresos_cap: "https://app.powerbi.com/view?r=eyJrIjoiMTk3YzZmMmQtZDA2OC00YTBlLWIwNWEtOWMwMWM2NTNjZWJhIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9",
-  estado_analitico: "https://app.powerbi.com/view?r=eyJrIjoiNWNjNmQ4YWMtNjNhMi00OTg1LWE4MDUtM2QwNThjZGU5MDI3IiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9",
-  proyecciones: "https://app.powerbi.com/view?r=eyJrIjoiNGZkZmM5OGItNDljYi00MDExLWFlZTctNTMxZjRiZjEwMTVkIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9",
-  resultados: "https://app.powerbi.com/view?r=eyJrIjoiZWMzNjhlNzItZjFiZi00MGMwLWJmNzQtMjE1MDE1NWYwMDJiIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9",
-  panorama_hacienda: "https://app.powerbi.com/view?r=eyJrIjoiYzczZWEwNWItNWNjNC00M2UyLTkyN2YtYTVkODE4NDczNjczIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9",
-  cp_estatales: "https://app.powerbi.com/view?r=eyJrIjoiZjkzYmJkZWYtNTZkZi00NzMxLTkyMjItMjc2ZGRjMTVjMGQxIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9",
-  cp_municipales: "https://app.powerbi.com/view?r=eyJrIjoiMmZjZGZmN2QtOWFjMS00OTM4LWFhNTAtMDc1OWI2Mzg0NDVmIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9",
-  deuda_mun: "https://app.powerbi.com/view?r=eyJrIjoiNWI3NmRiZjYtMzczMy00M2Q4LWE2YjctNDBiMmZmOWFjNDgwIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9",
-  ambiental: "https://app.powerbi.com/view?r=eyJrIjoiODFkYjFkNWItMzg5Zi00YjA3LTlkMTUtMGE5NTI5MzUxNmE3IiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9",
-  indicadores: "https://app.powerbi.com/view?r=eyJrIjoiNzEzMGFlNzYtZDhkMS00ODhkLWJiMTEtMGU5YmFhYmUwNDA2IiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9",
-  censos_eco: "https://app.powerbi.com/view?r=eyJrIjoiZDJkODBkZWUtNmE3MC00NDdjLWFkOTUtZGY2MDZlNGI0NTdjIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9",
-  denue:"https://app.powerbi.com/view?r=eyJrIjoiNjY3YTY4ZjItZjY0Mi00OWFiLWJlZmMtNmI0M2E4YjE4MGI5IiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9",
-  publicaciones: "https://app.powerbi.com/view?r=eyJrIjoiNGJkYjJjNDItNjdjYS00YTg3LWE3YjUtZDMzYjUwZTMxNzlmIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9"
-};
-
-/* ====== LÓGICA UI ====== */
-const q=document.getElementById('q');
-const btnGroup=document.getElementById('toggleGroup');
-const btnIds=document.getElementById('toggleIds');
-const app=document.getElementById('app');
-const toast=document.getElementById('toast');
-let grouped=true, showIds=false;
-
-function categorize(id,name){
-  const t=(id+" "+name).toLowerCase();
-  if(/^pe_/.test(id)) return "Presupuesto de Egresos (PE)";
-  if(t.includes("efipem")) return "EFIPEM";
-  if(t.includes("leyes")) return "Leyes de Ingresos";
-  if(t.includes("balance")) return "Balances";
-  if(["pronosticos","impuestos_potenciales","predial_potencial"].includes(id)) return "Modelos y Potenciales";
-  if(["mapas","mapas_personal"].includes(id)) return "Mapas";
-  if(id.startsWith("mapas_")) return "Mapas por estado";
-  if(["indicadores","panorama_hacienda"].includes(id)) return "Indicadores y Panorama";
-  if(["deuda","deuda_municipal"].includes(id)) return "Deuda";
-  if(id==="municipal") return "Municipal";
-  if(id==="ambientales") return "Ambientales";
-  if(id==="derechos_agua") return "Ingresos y Derechos";
-  if(id==="censos_eco24")  return "Censos Económicos";
-  return "Otros";
-}
-function esc(s){ return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
-
-function showToast(msg){
-  toast.textContent = msg;
-  toast.classList.add('show');
-  setTimeout(()=>toast.classList.remove('show'), 1200);
-}
-
-function card(it){
-  const link = TARGETS[it.id] || "#";
-  return `<article class="card">
-    <h3 class="title">${esc(it.name)}</h3>
-    ${showIds?`<div class="id">${it.id}</div>`:''}
-    <div class="meta"><span class="tag">PBI</span><span class="tag">${esc(it.cat)}</span></div>
-    <div class="actions">
-      <a class="a" href="${link}" onclick="return openReport('${it.id}')" rel="noopener noreferrer">Abrir</a>
-      <button class="a" type="button" onclick="return copyLink('${it.id}')">Copiar</button>
-      <a class="a primary" href="${link}" onclick="return openReport('${it.id}')" rel="noopener noreferrer">Ir ahora</a>
-    </div>
-  </article>`;
-}
-
-function render(){
-  document.getElementById('static').hidden=true;
-  app.hidden=false;
-
-  const term=q.value.trim().toLowerCase();
-  const items=Object.entries(REPORTS)
-    .map(([id,v])=>({id,name:v.name,cat:categorize(id,v.name)}))
-    .filter(x=>!term||x.id.toLowerCase().includes(term)||x.name.toLowerCase().includes(term));
-
-  if(!grouped){
-    app.innerHTML=`<div class="grid">${items.map(card).join("")||`<div class="empty">Sin resultados</div>`}</div>`;
-    return;
-  }
-  const groups={}; for(const it of items){ (groups[it.cat]??=[]).push(it); }
-  const order=Object.keys(groups).sort((a,b)=>a.localeCompare(b,'es'));
-  app.innerHTML=order.map(cat=>`
-    <section>
-      <h2 style="font-size:1rem;margin:12px 0 8px">${esc(cat)} <span class="tag">${groups[cat].length}</span></h2>
-      <div class="grid">${groups[cat].map(card).join("")}</div>
-    </section>`).join("") || `<div class="empty">Sin resultados</div>`;
-}
-q.addEventListener("input",render);
-btnGroup.addEventListener("click",()=>{grouped=!grouped;btnGroup.setAttribute("aria-pressed",String(grouped));render();});
-btnIds.addEventListener("click",()=>{showIds=!showIds;btnIds.setAttribute("aria-pressed",String(showIds));render();});
-window.addEventListener('DOMContentLoaded', render, {once:true});
-
-/* ====== TRACKING SIN BLOQUEO (Worker) ====== */
-function logBeaconToWorker(payload) {
-  try {
-    const data = new Blob([JSON.stringify(payload)], { type: "application/json" });
-    if (navigator.sendBeacon) {
-      navigator.sendBeacon(WORKER_BASE + "/log", data);
-      return;
-    }
-  } catch {}
-  // Fallback (no bloqueante)
-  fetch(WORKER_BASE + "/log", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-    keepalive: true,
-    mode: "no-cors"
-  });
-}
-
-function openReport(id){
-  const target = TARGETS[id];
-  if(!target){
-    alert("Falta configurar la URL del reporte: " + id);
-    return false;
-  }
-  logBeaconToWorker({
-    r: id,
-    id,
-    name: REPORTS[id]?.name || "",
-    ts: Date.now(),
-    userAgent: navigator.userAgent,
-    source: "github_index"
-  });
-  // Redirección única al PBI (sin intermedios)
-  window.location.href = target;
-  return false;
-}
-
-function copyLink(id){
-  const link = TARGETS[id];
-  if(!link){ showToast("Sin URL"); return false; }
-  if (navigator.clipboard?.writeText) {
-    navigator.clipboard.writeText(link).then(()=>showToast("Copiado"),()=>showToast("No se pudo copiar"));
+  if (link === "") {
+    visor.style.display = "none";
+    inicio.style.display = "flex";
   } else {
-    const ta=document.createElement('textarea');
-    ta.value=link; document.body.appendChild(ta); ta.select();
-    try{ document.execCommand('copy'); showToast("Copiado"); }catch{ showToast("No se pudo copiar"); }
-    document.body.removeChild(ta);
+    inicio.style.display = "none";
+    visor.style.display = "block";
+    visor.src = link;
   }
-  return false;
 }
+
+function ocultarTodos() {
+  document.getElementById("estimaciones").style.display = "none";
+  document.getElementById("informacion").style.display = "none";
+}
+
+function mostrar(seccion) {
+  ocultarTodos();
+  document.getElementById(seccion).style.display = "block";
+}
+
+function mostrarPublicacion() {
+  ocultarTodos();
+
+  let inicio = document.getElementById("inicio");
+  let visor = document.getElementById("visor");
+
+  inicio.style.display = "none";
+  visor.style.display = "block";
+
+  visor.src = "https://indetec-tracker.cdhindetec.workers.dev/go?id=publicaciones&src=boton_inicio";
+}
+
+function activar(elemento) {
+  let items = document.querySelectorAll(".subtitulo");
+  items.forEach(el => el.classList.remove("activo"));
+  elemento.classList.add("activo");
+}
+
+function mostrarPublicaciones() {
+  ocultarTodos();
+
+  let inicio = document.getElementById("inicio");
+  let visor = document.getElementById("visor");
+
+  inicio.style.display = "none";
+  visor.style.display = "block";
+
+  visor.src = "https://app.powerbi.com/view?r=eyJrIjoiYjlmZDZhM2MtYzJlMS00NjExLTk0ZWEtZjg3MWJiMzM5NGYxIiwidCI6IjRhZjM1NGU0LTM0Y2MtNGM0Yy1hY2MwLTIyMmZkMDU1NTZiNiJ9";
+}
+
 </script>
-</body>
-</html>
